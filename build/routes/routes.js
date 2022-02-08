@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.routes = void 0;
 const express_1 = require("express");
-const database_1 = require("../utilidades/database");
+const database_1 = require("../database/database");
 const viviendas_1 = require("../schemas/viviendas");
 const empleados_1 = require("../schemas/empleados");
 class DatoRoutes {

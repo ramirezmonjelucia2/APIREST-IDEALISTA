@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express'
-import { db } from '../utilidades/database'
+import { db } from '../database/database'
 import { modeloVivienda, totVivi } from '../schemas/viviendas'
 import { modeloEmpleado, totEmpleados } from '../schemas/empleados'
 
