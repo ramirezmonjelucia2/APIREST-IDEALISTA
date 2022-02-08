@@ -123,65 +123,69 @@ class DatoRoutes {
         await db.desconectarBD()
     }
 
+    private updateEstado = async (req: Request, res: Response) => {
+        const { idVivienda, idEmpleado} = req.params
+        await db.conectarBD()
+        await modeloVivienda.findOneAndUpdate(
+            {
+                _idVivienda: idVivienda
+            },
+            {
+                _estado: {
+                    vendido: true,
+                    fecha: new Date(),
+                    empleado: idEmpleado
+                }
+            }
+        )
+            .then((doc: any) => res.send("Vivienda vendida " + doc))
+            .catch((err: any) => res.send('Error: ' + err))
+        await db.desconectarBD()
+    }
+    private modificarEmpleado = async (req: Request, res: Response) => {
+        const { idEmpleado, sueldobase, comision } = req.params
+        await db.conectarBD()
+        await modeloEmpleado.findOneAndUpdate(
+            {
+                _idEmpleado: idEmpleado
+            },
+            {
+                _sueldobase: sueldobase,
+                _comisionventa: comision
+            }
+        )
+            .then((doc: any) => res.send("Subido el sueldo a: " + doc))
+            .catch((err: any) => res.send('Error: ' + err))
+        await db.desconectarBD()
+    }
 
-
-
-    private updateVivienda = async (req: Request, res: Response) => {
+    private deleteVivienda = async (req: Request, res: Response) => {
         const { idVivienda } = req.params
-        const { idEmpleado } = req.body
-
         await db.conectarBD()
-        await modeloVivienda.findOneAndUpdate({
-            "_idVivienda": idVivienda,
-        }, {
-
-            estado: true,
-            fecha: new Date(),
-            empleado: idEmpleado
-        }
+        await modeloVivienda.findOneAndDelete(
+            {
+                _idVivienda: idVivienda
+            }
         )
-            .then((doc: any) => res.send("Actualizada: " + doc))
+            .then((doc: any) => res.send("Vivienda borrada: " + doc))
             .catch((err: any) => res.send('Error: ' + err))
         await db.desconectarBD()
     }
 
-    private updateEmpleado = async (req: Request, res: Response) => {
-        const { idEmpleado } = req.params
-        const { sueldobase, comision } = req.body
-        await db.conectarBD()
-        await modeloEmpleado.findOneAndUpdate({
-            "_idEmpleado": idEmpleado,
-        }, {
-
-            "_sueldobase": sueldobase,
-            "_comisionventa": comision,
-        }, {
-            new: true,
-            runValidators: true
-        }
-        )
-            .then((doc: any) => res.send("Actualizado: " + doc))
-            .catch((err: any) => res.send('Error: ' + err))
-        await db.desconectarBD()
-    }
     private deleteEmpleado = async (req: Request, res: Response) => {
-        const { idEmp } = req.params
+        const { idEmpleado } = req.params
         await db.conectarBD()
         await modeloEmpleado.findOneAndDelete(
             {
-                "_idEmpleado": idEmp
+                _idEmpleado: idEmpleado
             }
         )
-            .then((doc: any) => {
-                if (doc == null) {
-                    res.send(`No encontrado`)
-                } else {
-                    res.send('Borrado correcto: ' + doc)
-                }
-            })
+            .then((doc: any) => res.send("Empleado borrado: " + doc))
             .catch((err: any) => res.send('Error: ' + err))
-        db.desconectarBD()
+        await db.desconectarBD()
     }
+
+
     misRutas() {
         this._router.get('/viviendas', this.getViviendas)
         this._router.get('/viviendas/:type', this.getTypes)
@@ -189,9 +193,12 @@ class DatoRoutes {
         this._router.post('/vivienda', this.postVivienda)
         this._router.post('/empleado', this.postEmpleado)
 
-        this._router.put('/venta/:idVivienda', this.updateVivienda)
-        this._router.put('/empleado/:idEmpleado', this.updateEmpleado)
-        this._router.delete('/deleteEmp/:idEmp', this.deleteEmpleado)
+        this._router.put('/empleado/:idEmpleado/:sueldobase/:comision', this.modificarEmpleado)
+        this._router.put('/venta/:idVivienda/:idEmpleado', this.updateEstado)
+
+        this._router.delete('/deleteEmpleado/:idEmpleado', this.deleteEmpleado)
+        this._router.delete('/deleteVivienda/:idVivienda', this.deleteVivienda)
+
     }
 }
 
