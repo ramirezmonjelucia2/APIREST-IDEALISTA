@@ -28,7 +28,6 @@ const viviendaSchema = new mongoose_1.Schema({
         ascensor: Boolean,
         equipamiento: Array
     },
-    "_preciom2": Number,
     "_estado": {
         vendido: {
             type: Boolean,

@@ -63,7 +63,6 @@ class DatoRoutes {
             baños,
             ascensor,
             equipamiento,
-            precio,
             _piscina,
             _largojardin,
             _anchojardin,
@@ -86,7 +85,6 @@ class DatoRoutes {
                 "ascensor": ascensor,
                 "equipamiento": [equipamiento]
             },
-            "_preciom2": precio,
             "_estado": {
                 "vendido": false,
                 "fecha": new Date(),

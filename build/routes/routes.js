@@ -45,7 +45,7 @@ class DatoRoutes {
             yield database_1.db.desconectarBD();
         });
         this.postVivienda = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { _tipoObjeto, _idVivienda, _largo, _ancho, municipio, ciudad, codpost, habitaciones, baños, ascensor, equipamiento, precio, _piscina, _largojardin, _anchojardin, _cochera } = req.body;
+            const { _tipoObjeto, _idVivienda, _largo, _ancho, municipio, ciudad, codpost, habitaciones, baños, ascensor, equipamiento, _piscina, _largojardin, _anchojardin, _cochera } = req.body;
             yield database_1.db.conectarBD();
             let dSchemaViv = {
                 "_tipoObjeto": _tipoObjeto,
@@ -63,7 +63,6 @@ class DatoRoutes {
                     "ascensor": ascensor,
                     "equipamiento": [equipamiento]
                 },
-                "_preciom2": precio,
                 "_estado": {
                     "vendido": false,
                     "fecha": new Date(),

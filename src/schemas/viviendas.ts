@@ -26,7 +26,6 @@ const viviendaSchema = new Schema({
         ascensor: Boolean,
         equipamiento: Array
     },
-    "_preciom2": Number,
     "_estado": {
         vendido: {
             type: Boolean,
@@ -59,7 +58,6 @@ export type tChalet = {
         "ascensor": boolean | null,
         "equipamiento": Array<string> | null
     },
-    "_preciom2": number | null,
     "_estado": {
         "vendido": boolean | null,
         "fecha": Date | null,
@@ -87,7 +85,6 @@ export type tCasa = {
         "ascensor": boolean | null,
         "equipamiento": Array<string> | null
     },
-    "_preciom2": number | null,
     "_estado": {
         "vendido": boolean | null,
         "fecha": Date | null,
@@ -114,7 +111,6 @@ export type totVivi = {
         "ascensor": boolean,
         "equipamiento": Array<string>
     },
-    "_preciom2": number| null,
     "_estado": {
         "vendido": boolean| null,
         "fecha": Date | null,
