@@ -34,7 +34,7 @@ class DatoRoutes {
                 .then((mensaje) => __awaiter(this, void 0, void 0, function* () {
                 console.log(mensaje);
                 const query = yield viviendas_1.modeloVivienda.find({
-                    _tipoObjeto: type
+                    tipoObjeto: type
                 });
                 res.json(query);
             }))
@@ -57,33 +57,33 @@ class DatoRoutes {
             database_1.db.desconectarBD();
         });
         this.postVivienda = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { _tipoObjeto, _idVivienda, _largo, _ancho, municipio, ciudad, codpost, habitaciones, baños, ascensor, equipamiento, _piscina, _largojardin, _anchojardin, _cochera } = req.body;
+            const { tipoObjeto, idVivienda, largo, ancho, municipio, ciudad, codpost, habitaciones, baños, ascensor, equipamiento, piscina, largojardin, anchojardin, cochera } = req.body;
             yield database_1.db.conectarBD();
             let dSchemaViv = {
-                "_tipoObjeto": _tipoObjeto,
-                "_idVivienda": _idVivienda,
-                "_largo": _largo,
-                "_ancho": _ancho,
-                "_ubicacion": {
+                "tipoObjeto": tipoObjeto,
+                "idVivienda": idVivienda,
+                "largo": largo,
+                "ancho": ancho,
+                "ubicacion": {
                     "municipio": municipio,
                     "ciudad": ciudad,
                     "codpost": codpost,
                 },
-                "_caracteristicas": {
+                "caracteristicas": {
                     "habitaciones": habitaciones,
                     "baños": baños,
                     "ascensor": ascensor,
                     "equipamiento": [equipamiento]
                 },
-                "_estado": {
+                "estado": {
                     "vendido": false,
                     "fecha": new Date(),
                     "empleado": null,
                 },
-                "_piscina": _piscina,
-                "_largojardin": _largojardin,
-                "_anchojardin": _anchojardin,
-                "_cochera": _cochera
+                "piscina": piscina,
+                "largojardin": largojardin,
+                "anchojardin": anchojardin,
+                "cochera": cochera
             };
             const oSchema = new viviendas_1.modeloVivienda(dSchemaViv);
             yield oSchema.save()
@@ -92,15 +92,15 @@ class DatoRoutes {
             yield database_1.db.desconectarBD();
         });
         this.postEmpleado = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { _idEmpleado, _nombre, email, telefono, _sueldobase, _comisionventa } = req.body;
+            const { idEmpleado, nombre, email, telefono, sueldobase, comisionventa } = req.body;
             yield database_1.db.conectarBD();
             let dSchemaEmp = {
-                "_idEmpleado": _idEmpleado,
-                "_nombre": _nombre,
-                "_email": email,
-                "_telefono": telefono,
-                "_sueldobase": _sueldobase,
-                "_comisionventa": _comisionventa
+                "idEmpleado": idEmpleado,
+                "nombre": nombre,
+                "email": email,
+                "telefono": telefono,
+                "sueldobase": sueldobase,
+                "comisionventa": comisionventa
             };
             const oSchema = new empleados_1.modeloEmpleado(dSchemaEmp);
             yield oSchema.save()
@@ -112,9 +112,9 @@ class DatoRoutes {
             const { idVivienda, idEmpleado } = req.params;
             yield database_1.db.conectarBD();
             yield viviendas_1.modeloVivienda.findOneAndUpdate({
-                _idVivienda: idVivienda
+                idVivienda: idVivienda
             }, {
-                _estado: {
+                estado: {
                     vendido: true,
                     fecha: new Date(),
                     empleado: idEmpleado
@@ -128,11 +128,11 @@ class DatoRoutes {
             const { idEmpleado, email, telefono, sueldobase, comision } = req.params;
             yield database_1.db.conectarBD();
             yield empleados_1.modeloEmpleado.findOneAndUpdate({
-                _idEmpleado: idEmpleado
-            }, { _email: email,
-                _telefono: telefono,
-                _sueldobase: sueldobase,
-                _comisionventa: comision
+                idEmpleado: idEmpleado
+            }, { email: email,
+                telefono: telefono,
+                sueldobase: sueldobase,
+                comisionventa: comision
             })
                 .then((doc) => res.send("Subido el sueldo a: " + doc))
                 .catch((err) => res.send('Error: ' + err));
@@ -142,7 +142,7 @@ class DatoRoutes {
             const { idVivienda } = req.params;
             yield database_1.db.conectarBD();
             yield viviendas_1.modeloVivienda.findOneAndDelete({
-                _idVivienda: idVivienda
+                idVivienda: idVivienda
             })
                 .then((doc) => res.send("Vivienda borrada: " + doc))
                 .catch((err) => res.send('Error: ' + err));
@@ -152,7 +152,7 @@ class DatoRoutes {
             const { idEmpleado } = req.params;
             yield database_1.db.conectarBD();
             yield empleados_1.modeloEmpleado.findOneAndDelete({
-                _idEmpleado: idEmpleado
+                idEmpleado: idEmpleado
             })
                 .then((doc) => res.send("Empleado borrado: " + doc))
                 .catch((err) => res.send('Error: ' + err));

@@ -36,7 +36,7 @@ class DatoRoutes {
                     const query = await modeloVivienda.find(
                         {
 
-                            _tipoObjeto: type
+                            tipoObjeto: type
                         }
                     )
                     res.json(query)
@@ -69,10 +69,10 @@ class DatoRoutes {
 
 
     private postVivienda = async (req: Request, res: Response) => {
-        const { _tipoObjeto,
-            _idVivienda,
-            _largo,
-            _ancho,
+        const { tipoObjeto,
+            idVivienda,
+            largo,
+            ancho,
             municipio,
             ciudad,
             codpost,
@@ -80,38 +80,38 @@ class DatoRoutes {
             baños,
             ascensor,
             equipamiento,
-            _piscina,
-            _largojardin,
-            _anchojardin,
-            _cochera } = req.body
+            piscina,
+            largojardin,
+            anchojardin,
+            cochera } = req.body
 
         await db.conectarBD()
         let dSchemaViv: totVivi = {
-            "_tipoObjeto": _tipoObjeto,
-            "_idVivienda": _idVivienda,
-            "_largo": _largo,
-            "_ancho": _ancho,
-            "_ubicacion": {
+            "tipoObjeto": tipoObjeto,
+            "idVivienda": idVivienda,
+            "largo": largo,
+            "ancho": ancho,
+            "ubicacion": {
                 "municipio": municipio,
                 "ciudad": ciudad,
                 "codpost": codpost,
             },
-            "_caracteristicas": {
+            "caracteristicas": {
                 "habitaciones": habitaciones,
                 "baños": baños,
                 "ascensor": ascensor,
                 "equipamiento": [equipamiento]
             },
-            "_estado": {
+            "estado": {
                 "vendido": false,
                 "fecha": new Date(),
                 "empleado": null,
 
             },
-            "_piscina": _piscina,
-            "_largojardin": _largojardin,
-            "_anchojardin": _anchojardin,
-            "_cochera": _cochera
+            "piscina": piscina,
+            "largojardin": largojardin,
+            "anchojardin": anchojardin,
+            "cochera": cochera
         }
         const oSchema = new modeloVivienda(dSchemaViv)
         await oSchema.save()
@@ -123,15 +123,15 @@ class DatoRoutes {
 
 
     private postEmpleado = async (req: Request, res: Response) => {
-        const { _idEmpleado, _nombre, email, telefono, _sueldobase, _comisionventa } = req.body
+        const { idEmpleado, nombre, email, telefono, sueldobase, comisionventa } = req.body
         await db.conectarBD()
         let dSchemaEmp: totEmpleados = {
-            "_idEmpleado": _idEmpleado,
-            "_nombre": _nombre,
-            "_email": email,
-            "_telefono": telefono,
-            "_sueldobase": _sueldobase,
-            "_comisionventa": _comisionventa
+            "idEmpleado": idEmpleado,
+            "nombre": nombre,
+            "email": email,
+            "telefono": telefono,
+            "sueldobase": sueldobase,
+            "comisionventa": comisionventa
         }
         const oSchema = new modeloEmpleado(dSchemaEmp)
         await oSchema.save()
@@ -145,10 +145,10 @@ class DatoRoutes {
         await db.conectarBD()
         await modeloVivienda.findOneAndUpdate(
             {
-                _idVivienda: idVivienda
+                idVivienda: idVivienda
             },
             {
-                _estado: {
+                estado: {
                     vendido: true,
                     fecha: new Date(),
                     empleado: idEmpleado
@@ -164,12 +164,12 @@ class DatoRoutes {
         await db.conectarBD()
         await modeloEmpleado.findOneAndUpdate(
             {
-                _idEmpleado: idEmpleado
+                idEmpleado: idEmpleado
             },
-            {   _email: email,
-                _telefono: telefono,
-                _sueldobase: sueldobase,
-                _comisionventa: comision
+            {   email: email,
+                telefono: telefono,
+                sueldobase: sueldobase,
+                comisionventa: comision
             }
         )
             .then((doc: any) => res.send("Subido el sueldo a: " + doc))
@@ -182,7 +182,7 @@ class DatoRoutes {
         await db.conectarBD()
         await modeloVivienda.findOneAndDelete(
             {
-                _idVivienda: idVivienda
+                idVivienda: idVivienda
             }
         )
             .then((doc: any) => res.send("Vivienda borrada: " + doc))
@@ -195,7 +195,7 @@ class DatoRoutes {
         await db.conectarBD()
         await modeloEmpleado.findOneAndDelete(
             {
-                _idEmpleado: idEmpleado
+                idEmpleado: idEmpleado
             }
         )
             .then((doc: any) => res.send("Empleado borrado: " + doc))
