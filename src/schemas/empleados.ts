@@ -26,7 +26,7 @@ export type totEmpleados = {
     idEmpleado: number,
     nombre: string,
     email: string,
-    telefono: number,
+    telefono: string,
     sueldobase: number,
     comisionventa: number,
 }
