@@ -3,10 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.modeloEmpleado = void 0;
 const mongoose_1 = require("mongoose");
 const empleadoSchema = new mongoose_1.Schema({
-    idEmpleado: Number,
+    idEmpleado: {
+        type: Number,
+        unique: true
+    },
     nombre: String,
     email: String,
-    telefono: String,
+    telefono: {
+        type: String,
+        unique: true
+    },
     sueldobase: {
         type: Number,
         default: 950

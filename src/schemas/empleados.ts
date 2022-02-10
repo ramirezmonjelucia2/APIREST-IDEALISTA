@@ -1,9 +1,15 @@
 import { Schema, model } from 'mongoose'
 const empleadoSchema = new Schema({
-    idEmpleado: Number,
+    idEmpleado:{
+        type: Number,
+       unique: true
+    },
     nombre: String,
     email: String,
-    telefono: String,
+    telefono: {
+        type: String,
+       unique: true
+    },
     sueldobase: {
         type: Number,
         default: 950
