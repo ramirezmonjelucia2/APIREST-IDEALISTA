@@ -4,7 +4,7 @@ exports.modeloEmpleado = void 0;
 const mongoose_1 = require("mongoose");
 const empleadoSchema = new mongoose_1.Schema({
     "idEmpleado": {
-        type: String,
+        type: Number,
         unique: true,
     },
     "nombre": String,
