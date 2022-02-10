@@ -44,6 +44,18 @@ class DatoRoutes {
             });
             yield database_1.db.desconectarBD();
         });
+        this.getEmpleados = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            yield database_1.db.conectarBD()
+                .then((mensaje) => __awaiter(this, void 0, void 0, function* () {
+                console.log(mensaje);
+                const query = yield empleados_1.modeloEmpleado.find({});
+                res.json(query);
+            }))
+                .catch((mensaje) => {
+                res.send(mensaje);
+            });
+            database_1.db.desconectarBD();
+        });
         this.postVivienda = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { _tipoObjeto, _idVivienda, _largo, _ancho, municipio, ciudad, codpost, habitaciones, baños, ascensor, equipamiento, _piscina, _largojardin, _anchojardin, _cochera } = req.body;
             yield database_1.db.conectarBD();
@@ -80,11 +92,13 @@ class DatoRoutes {
             yield database_1.db.desconectarBD();
         });
         this.postEmpleado = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { _idEmpleado, _nombre, _sueldobase, _comisionventa } = req.body;
+            const { _idEmpleado, _nombre, email, telefono, _sueldobase, _comisionventa } = req.body;
             yield database_1.db.conectarBD();
             let dSchemaEmp = {
                 "_idEmpleado": _idEmpleado,
                 "_nombre": _nombre,
+                "_email": email,
+                "_telefono": telefono,
                 "_sueldobase": _sueldobase,
                 "_comisionventa": _comisionventa
             };
@@ -111,11 +125,12 @@ class DatoRoutes {
             yield database_1.db.desconectarBD();
         });
         this.modificarEmpleado = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { idEmpleado, sueldobase, comision } = req.params;
+            const { idEmpleado, email, telefono, sueldobase, comision } = req.params;
             yield database_1.db.conectarBD();
             yield empleados_1.modeloEmpleado.findOneAndUpdate({
                 _idEmpleado: idEmpleado
-            }, {
+            }, { _email: email,
+                _telefono: telefono,
                 _sueldobase: sueldobase,
                 _comisionventa: comision
             })
@@ -151,8 +166,9 @@ class DatoRoutes {
     misRutas() {
         this._router.get('/viviendas', this.getViviendas);
         this._router.get('/viviendas/:type', this.getTypes);
+        this._router.get('/empleados', this.getEmpleados);
         this._router.post('/vivienda', this.postVivienda);
-        this._router.post('/empleado', this.postEmpleado);
+        this._router.post('/empleados', this.postEmpleado);
         this._router.put('/empleado/:idEmpleado/:sueldobase/:comision', this.modificarEmpleado);
         this._router.put('/venta/:idVivienda/:idEmpleado', this.updateEstado);
         this._router.delete('/deleteEmpleado/:idEmpleado', this.deleteEmpleado);

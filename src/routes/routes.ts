@@ -50,6 +50,23 @@ class DatoRoutes {
     }
 
 
+    private getEmpleados = async (req: Request, res: Response) => {
+        await db.conectarBD()
+            .then(async (mensaje) => {
+                console.log(mensaje)
+                const query = await modeloEmpleado.find({})
+                res.json(query)
+            })
+            .catch((mensaje) => {
+                res.send(mensaje)
+            })
+
+        db.desconectarBD()
+    }
+
+
+
+
 
     private postVivienda = async (req: Request, res: Response) => {
         const { _tipoObjeto,
@@ -106,11 +123,13 @@ class DatoRoutes {
 
 
     private postEmpleado = async (req: Request, res: Response) => {
-        const { _idEmpleado, _nombre, _sueldobase, _comisionventa } = req.body
+        const { _idEmpleado, _nombre, email, telefono, _sueldobase, _comisionventa } = req.body
         await db.conectarBD()
         let dSchemaEmp: totEmpleados = {
             "_idEmpleado": _idEmpleado,
             "_nombre": _nombre,
+            "_email": email,
+            "_telefono": telefono,
             "_sueldobase": _sueldobase,
             "_comisionventa": _comisionventa
         }
@@ -141,13 +160,14 @@ class DatoRoutes {
         await db.desconectarBD()
     }
     private modificarEmpleado = async (req: Request, res: Response) => {
-        const { idEmpleado, sueldobase, comision } = req.params
+        const { idEmpleado, email, telefono, sueldobase, comision } = req.params
         await db.conectarBD()
         await modeloEmpleado.findOneAndUpdate(
             {
                 _idEmpleado: idEmpleado
             },
-            {
+            {   _email: email,
+                _telefono: telefono,
                 _sueldobase: sueldobase,
                 _comisionventa: comision
             }
@@ -187,9 +207,10 @@ class DatoRoutes {
     misRutas() {
         this._router.get('/viviendas', this.getViviendas)
         this._router.get('/viviendas/:type', this.getTypes)
+        this._router.get('/empleados', this.getEmpleados)
 
         this._router.post('/vivienda', this.postVivienda)
-        this._router.post('/empleado', this.postEmpleado)
+        this._router.post('/empleados', this.postEmpleado)
 
         this._router.put('/empleado/:idEmpleado/:sueldobase/:comision', this.modificarEmpleado)
         this._router.put('/venta/:idVivienda/:idEmpleado', this.updateEstado)

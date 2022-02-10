@@ -5,6 +5,8 @@ const empleadoSchema = new Schema({
         unique: true,
     },
     "_nombre": String,
+    "_email": String,
+    "_telefono": String,
     "_sueldobase": {
         type: Number,
         default: 950
@@ -17,6 +19,8 @@ const empleadoSchema = new Schema({
 export type totEmpleados = {
     "_idEmpleado": string,
     "_nombre": string,
+    "_email": string,
+    "_telefono": string,
     "_sueldobase": number,
     "_comisionventa": number,
 }

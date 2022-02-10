@@ -3,7 +3,7 @@ import { Schema, model } from 'mongoose'
 const viviendaSchema = new Schema({
     "_tipoObjeto": {
         type: String,
-        required: [true, 'Que no se te olvide, a ver como lo identificas luego !!']
+        required: 'Que no se te olvide, a ver como lo identificas luego'
     },
     "_idVivienda": {
         type: Number,

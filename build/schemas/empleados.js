@@ -8,6 +8,8 @@ const empleadoSchema = new mongoose_1.Schema({
         unique: true,
     },
     "_nombre": String,
+    "_email": String,
+    "_telefono": String,
     "_sueldobase": {
         type: Number,
         default: 950

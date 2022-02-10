@@ -5,7 +5,7 @@ const mongoose_1 = require("mongoose");
 const viviendaSchema = new mongoose_1.Schema({
     "_tipoObjeto": {
         type: String,
-        required: [true, 'Que no se te olvide, a ver como lo identificas luego !!']
+        required: 'Que no se te olvide, a ver como lo identificas luego'
     },
     "_idVivienda": {
         type: Number,
