@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Collection } from 'mongoose'
 const empleadoSchema = new Schema({
     idEmpleado: {
         type: Number,
@@ -7,18 +7,19 @@ const empleadoSchema = new Schema({
     nombre: String,
     email: {
         type: String,
-        unique: true
+        required: true
     },
     telefono: {
         type: String,
-        unique: true
+        required: true
     },
     sueldobase: {
         type: Number,
         default: 950
     },
     comisionventa: Number,
-})
+}
+)
 
 
 

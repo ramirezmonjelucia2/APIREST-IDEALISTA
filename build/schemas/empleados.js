@@ -10,11 +10,11 @@ const empleadoSchema = new mongoose_1.Schema({
     nombre: String,
     email: {
         type: String,
-        unique: true
+        required: true
     },
     telefono: {
         type: String,
-        unique: true
+        required: true
     },
     sueldobase: {
         type: Number,
