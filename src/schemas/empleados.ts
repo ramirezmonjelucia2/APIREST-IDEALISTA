@@ -1,14 +1,17 @@
 import { Schema, model } from 'mongoose'
 const empleadoSchema = new Schema({
-    idEmpleado:{
+    idEmpleado: {
         type: Number,
-       unique: true
+        unique: true
     },
     nombre: String,
-    email: String,
+    email: {
+        type: String,
+        unique: true
+    },
     telefono: {
         type: String,
-       unique: true
+        unique: true
     },
     sueldobase: {
         type: Number,
@@ -23,7 +26,7 @@ export type totEmpleados = {
     idEmpleado: number,
     nombre: string,
     email: string,
-    telefono: string,
+    telefono: number,
     sueldobase: number,
     comisionventa: number,
 }

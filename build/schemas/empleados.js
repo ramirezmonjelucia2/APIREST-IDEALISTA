@@ -8,7 +8,10 @@ const empleadoSchema = new mongoose_1.Schema({
         unique: true
     },
     nombre: String,
-    email: String,
+    email: {
+        type: String,
+        unique: true
+    },
     telefono: {
         type: String,
         unique: true
