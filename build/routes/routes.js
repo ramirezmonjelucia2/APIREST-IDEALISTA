@@ -60,34 +60,34 @@ class DatoRoutes {
             const { tipoObjeto, idVivienda, largo, ancho, municipio, ciudad, codpost, habitaciones, baños, ascensor, equipamiento, piscina, largojardin, anchojardin, cochera } = req.body;
             yield database_1.db.conectarBD();
             let dSchemaViv = {
-                "tipoObjeto": tipoObjeto,
-                "idVivienda": idVivienda,
-                "largo": largo,
-                "ancho": ancho,
-                "ubicacion": {
-                    "municipio": municipio,
-                    "ciudad": ciudad,
-                    "codpost": codpost,
+                tipoObjeto: tipoObjeto,
+                idVivienda: idVivienda,
+                largo: largo,
+                ancho: ancho,
+                ubicacion: {
+                    municipio: municipio,
+                    ciudad: ciudad,
+                    codpost: codpost,
                 },
-                "caracteristicas": {
-                    "habitaciones": habitaciones,
-                    "baños": baños,
-                    "ascensor": ascensor,
-                    "equipamiento": [equipamiento]
+                caracteristicas: {
+                    habitaciones: habitaciones,
+                    baños: baños,
+                    ascensor: ascensor,
+                    equipamiento: [equipamiento]
                 },
-                "estado": {
-                    "vendido": false,
-                    "fecha": new Date(),
-                    "empleado": null,
+                estado: {
+                    vendido: false,
+                    fecha: new Date(),
+                    empleado: null,
                 },
-                "piscina": piscina,
-                "largojardin": largojardin,
-                "anchojardin": anchojardin,
-                "cochera": cochera
+                piscina: piscina,
+                largojardin: largojardin,
+                anchojardin: anchojardin,
+                cochera: cochera
             };
             const oSchema = new viviendas_1.modeloVivienda(dSchemaViv);
             yield oSchema.save()
-                .then((doc) => res.send("La vivienda es: " + doc))
+                .then((doc) => res.send('La vivienda es: ' + doc))
                 .catch((err) => res.send('Error: ' + err));
             yield database_1.db.desconectarBD();
         });
@@ -95,16 +95,16 @@ class DatoRoutes {
             const { idEmpleado, nombre, email, telefono, sueldobase, comisionventa } = req.body;
             yield database_1.db.conectarBD();
             let dSchemaEmp = {
-                "idEmpleado": idEmpleado,
-                "nombre": nombre,
-                "email": email,
-                "telefono": telefono,
-                "sueldobase": sueldobase,
-                "comisionventa": comisionventa
+                idEmpleado: idEmpleado,
+                nombre: nombre,
+                email: email,
+                telefono: telefono,
+                sueldobase: sueldobase,
+                comisionventa: comisionventa
             };
             const oSchema = new empleados_1.modeloEmpleado(dSchemaEmp);
             yield oSchema.save()
-                .then((doc) => res.send("El empleado es: " + doc))
+                .then((doc) => res.send('El empleado es: ' + doc))
                 .catch((err) => res.send('Error: ' + err));
             yield database_1.db.desconectarBD();
         });
@@ -120,7 +120,7 @@ class DatoRoutes {
                     empleado: idEmpleado
                 }
             })
-                .then((doc) => res.send("Vivienda vendida " + doc))
+                .then((doc) => res.send('Vivienda vendida  ' + doc))
                 .catch((err) => res.send('Error: ' + err));
             yield database_1.db.desconectarBD();
         });
@@ -134,7 +134,7 @@ class DatoRoutes {
                 sueldobase: sueldobase,
                 comisionventa: comision
             })
-                .then((doc) => res.send("Subido el sueldo a: " + doc))
+                .then((doc) => res.send(' Subido el sueldo a:  ' + doc))
                 .catch((err) => res.send('Error: ' + err));
             yield database_1.db.desconectarBD();
         });
@@ -144,7 +144,7 @@ class DatoRoutes {
             yield viviendas_1.modeloVivienda.findOneAndDelete({
                 idVivienda: idVivienda
             })
-                .then((doc) => res.send("Vivienda borrada: " + doc))
+                .then((doc) => res.send(' Vivienda borrada:  ' + doc))
                 .catch((err) => res.send('Error: ' + err));
             yield database_1.db.desconectarBD();
         });
@@ -154,7 +154,7 @@ class DatoRoutes {
             yield empleados_1.modeloEmpleado.findOneAndDelete({
                 idEmpleado: idEmpleado
             })
-                .then((doc) => res.send("Empleado borrado: " + doc))
+                .then((doc) => res.send(' Empleado borrado: ' + doc))
                 .catch((err) => res.send('Error: ' + err));
             yield database_1.db.desconectarBD();
         });

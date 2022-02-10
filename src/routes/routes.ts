@@ -87,35 +87,35 @@ class DatoRoutes {
 
         await db.conectarBD()
         let dSchemaViv: totVivi = {
-            "tipoObjeto": tipoObjeto,
-            "idVivienda": idVivienda,
-            "largo": largo,
-            "ancho": ancho,
-            "ubicacion": {
-                "municipio": municipio,
-                "ciudad": ciudad,
-                "codpost": codpost,
+             tipoObjeto : tipoObjeto,
+             idVivienda : idVivienda,
+             largo : largo,
+             ancho : ancho,
+             ubicacion : {
+                 municipio : municipio,
+                 ciudad : ciudad,
+                 codpost : codpost,
             },
-            "caracteristicas": {
-                "habitaciones": habitaciones,
-                "baños": baños,
-                "ascensor": ascensor,
-                "equipamiento": [equipamiento]
+             caracteristicas : {
+                 habitaciones : habitaciones,
+                 baños : baños,
+                 ascensor : ascensor,
+                 equipamiento : [equipamiento]
             },
-            "estado": {
-                "vendido": false,
-                "fecha": new Date(),
-                "empleado": null,
+             estado : {
+                 vendido : false,
+                 fecha : new Date(),
+                 empleado : null,
 
             },
-            "piscina": piscina,
-            "largojardin": largojardin,
-            "anchojardin": anchojardin,
-            "cochera": cochera
+             piscina : piscina,
+             largojardin : largojardin,
+             anchojardin : anchojardin,
+             cochera : cochera
         }
         const oSchema = new modeloVivienda(dSchemaViv)
         await oSchema.save()
-            .then((doc: any) => res.send("La vivienda es: " + doc))
+            .then((doc: any) => res.send( 'La vivienda es: '   + doc))
             .catch((err: any) => res.send('Error: ' + err))
         await db.desconectarBD()
     }
@@ -126,16 +126,16 @@ class DatoRoutes {
         const { idEmpleado, nombre, email, telefono, sueldobase, comisionventa } = req.body
         await db.conectarBD()
         let dSchemaEmp: totEmpleados = {
-            "idEmpleado": idEmpleado,
-            "nombre": nombre,
-            "email": email,
-            "telefono": telefono,
-            "sueldobase": sueldobase,
-            "comisionventa": comisionventa
+            idEmpleado: idEmpleado,
+            nombre: nombre,
+            email: email,
+            telefono: telefono,
+            sueldobase: sueldobase,
+            comisionventa: comisionventa
         }
         const oSchema = new modeloEmpleado(dSchemaEmp)
         await oSchema.save()
-            .then((doc: any) => res.send("El empleado es: " + doc))
+            .then((doc: any) => res.send( 'El empleado es: '  + doc))
             .catch((err: any) => res.send('Error: ' + err))
         await db.desconectarBD()
     }
@@ -155,7 +155,7 @@ class DatoRoutes {
                 }
             }
         )
-            .then((doc: any) => res.send("Vivienda vendida " + doc))
+            .then((doc: any) => res.send( 'Vivienda vendida  ' + doc))
             .catch((err: any) => res.send('Error: ' + err))
         await db.desconectarBD()
     }
@@ -172,7 +172,7 @@ class DatoRoutes {
                 comisionventa: comision
             }
         )
-            .then((doc: any) => res.send("Subido el sueldo a: " + doc))
+            .then((doc: any) => res.send(' Subido el sueldo a:  ' + doc))
             .catch((err: any) => res.send('Error: ' + err))
         await db.desconectarBD()
     }
@@ -185,7 +185,7 @@ class DatoRoutes {
                 idVivienda: idVivienda
             }
         )
-            .then((doc: any) => res.send("Vivienda borrada: " + doc))
+            .then((doc: any) => res.send(' Vivienda borrada:  ' + doc))
             .catch((err: any) => res.send('Error: ' + err))
         await db.desconectarBD()
     }
@@ -198,7 +198,7 @@ class DatoRoutes {
                 idEmpleado: idEmpleado
             }
         )
-            .then((doc: any) => res.send("Empleado borrado: " + doc))
+            .then((doc: any) => res.send(' Empleado borrado: '  + doc))
             .catch((err: any) => res.send('Error: ' + err))
         await db.desconectarBD()
     }
