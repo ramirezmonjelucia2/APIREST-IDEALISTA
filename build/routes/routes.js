@@ -46,15 +46,28 @@ class DatoRoutes {
         });
         this.getEmpleados = (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield database_1.db.conectarBD()
-                .then((mensaje) => __awaiter(this, void 0, void 0, function* () {
-                console.log(mensaje);
-                const query = yield empleados_1.modeloEmpleado.find({});
+                .then(() => __awaiter(this, void 0, void 0, function* () {
+                const query = yield empleados_1.modeloEmpleado.aggregate([
+                    {
+                        $lookup: {
+                            from: 'viviendas',
+                            localField: 'idEmpleado',
+                            foreignField: 'estado.empleado',
+                            as: "ventas"
+                        },
+                        $project: {
+                            idEmpleado: 1,
+                            nombre: 1,
+                            ventas: { $size: "$ventas" }
+                        }
+                    }
+                ]);
                 res.json(query);
             }))
                 .catch((mensaje) => {
                 res.send(mensaje);
             });
-            database_1.db.desconectarBD();
+            yield database_1.db.desconectarBD();
         });
         this.postVivienda = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { tipoObjeto, idVivienda, largo, ancho, municipio, ciudad, codpost, habitaciones, baños, ascensor, equipamiento, piscina, largojardin, anchojardin, cochera } = req.body;
@@ -129,7 +142,8 @@ class DatoRoutes {
             yield database_1.db.conectarBD();
             yield empleados_1.modeloEmpleado.findOneAndUpdate({
                 idEmpleado: idEmpleado
-            }, { email: email,
+            }, {
+                email: email,
                 telefono: telefono,
                 sueldobase: sueldobase,
                 comisionventa: comision

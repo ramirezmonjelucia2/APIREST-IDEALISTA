@@ -32,14 +32,14 @@ const viviendaSchema = new Schema({
             default: false
         },
         fecha: Date,
-        empleado: String,
+        empleado: Number,
     },
     piscina: Boolean,
     largojardin: Number,
     anchojardin: Number,
     cochera: Boolean
 
-})
+}, {collection: 'viviendas'})
 
 
 export type tChalet = {
@@ -61,7 +61,7 @@ export type tChalet = {
     estado: {
         vendido: boolean | null,
         fecha: Date | null,
-        empleado: string | null
+        empleado: number | null
 
     }
     piscina: boolean | null
@@ -88,7 +88,7 @@ export type tCasa = {
     estado: {
         vendido: boolean | null,
         fecha: Date | null,
-        empleado: string | null
+        empleado: number | null
 
     }
     cochera: boolean | null
@@ -114,7 +114,7 @@ export type totVivi = {
     estado: {
         vendido: boolean | null,
         fecha: Date | null,
-        empleado: string | null,
+        empleado: number | null,
 
     }
     piscina: boolean,

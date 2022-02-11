@@ -18,7 +18,7 @@ const empleadoSchema = new Schema({
         default: 950
     },
     comisionventa: Number,
-}
+}, {collection: 'empleados'}
 )
 
 

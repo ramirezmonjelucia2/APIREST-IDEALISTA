@@ -21,5 +21,5 @@ const empleadoSchema = new mongoose_1.Schema({
         default: 950
     },
     comisionventa: Number,
-});
+}, { collection: 'empleados' });
 exports.modeloEmpleado = (0, mongoose_1.model)('empleados', empleadoSchema);

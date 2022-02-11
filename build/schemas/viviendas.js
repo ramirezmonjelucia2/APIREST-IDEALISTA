@@ -34,11 +34,11 @@ const viviendaSchema = new mongoose_1.Schema({
             default: false
         },
         fecha: Date,
-        empleado: String,
+        empleado: Number,
     },
     piscina: Boolean,
     largojardin: Number,
     anchojardin: Number,
     cochera: Boolean
-});
+}, { collection: 'viviendas' });
 exports.modeloVivienda = (0, mongoose_1.model)('viviendas', viviendaSchema);
