@@ -53,14 +53,14 @@ class DatoRoutes {
                             'from': 'viviendas',
                             'localField': 'idEmpleado',
                             'foreignField': 'estado.empleado',
-                            'as': 'ventas'
+                            'as': 'numeroVentas'
                         }
                     }, {
                         '$project': {
                             'idEmpleado': 1,
                             'nombre': 1,
-                            'ventas': {
-                                '$size': '$ventas'
+                            'numeroVentas': {
+                                '$size': '$numeroVentas'
                             }
                         }
                     }
