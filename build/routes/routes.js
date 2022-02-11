@@ -49,16 +49,19 @@ class DatoRoutes {
                 .then(() => __awaiter(this, void 0, void 0, function* () {
                 const query = yield empleados_1.modeloEmpleado.aggregate([
                     {
-                        $lookup: {
-                            from: 'viviendas',
-                            localField: 'idEmpleado',
-                            foreignField: 'estado.empleado',
-                            as: "ventas"
-                        },
-                        $project: {
-                            idEmpleado: 1,
-                            nombre: 1,
-                            ventas: { $size: "$ventas" }
+                        '$lookup': {
+                            'from': 'viviendas',
+                            'localField': 'idEmpleado',
+                            'foreignField': 'estado.empleado',
+                            'as': 'ventas'
+                        }
+                    }, {
+                        '$project': {
+                            'idEmpleado': 1,
+                            'nombre': 1,
+                            'ventas': {
+                                '$size': '$ventas'
+                            }
                         }
                     }
                 ]);

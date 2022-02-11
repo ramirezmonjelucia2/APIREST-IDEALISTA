@@ -58,31 +58,33 @@ class DatoRoutes {
     }
 
 
- 
+
     private getEmpleados = async (req: Request, res: Response) => {
         await db.conectarBD()
-        .then( async ()=> {
-            const query = await modeloEmpleado.aggregate([
-                {
-                    $lookup: {
-                        from: 'viviendas',
-                        localField: 'idEmpleado',
-                        foreignField: 'estado.empleado',
-                        as: "ventas"
-                    },
-                    
-                    $project: {
-                        idEmpleado: 1,
-                        nombre:1,
-                        ventas: { $size:"$ventas" }
+            .then(async () => {
+                const query = await modeloEmpleado.aggregate([
+                    {
+                        '$lookup': {
+                            'from': 'viviendas',
+                            'localField': 'idEmpleado',
+                            'foreignField': 'estado.empleado',
+                            'as': 'ventas'
+                        }
+                    }, {
+                        '$project': {
+                            'idEmpleado': 1,
+                            'nombre': 1,
+                            'ventas': {
+                                '$size': '$ventas'
+                            }
+                        }
                     }
-                }
-            ])
-            res.json(query)
-        })
-        .catch((mensaje) => {
-            res.send(mensaje)
-        })
+                ])
+                res.json(query)
+            })
+            .catch((mensaje) => {
+                res.send(mensaje)
+            })
         await db.desconectarBD()
     }
 
