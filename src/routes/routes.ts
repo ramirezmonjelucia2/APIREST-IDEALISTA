@@ -74,6 +74,10 @@ class DatoRoutes {
                         '$project': {
                             'idEmpleado': 1,
                             'nombre': 1,
+                            'email':1,
+                            'telefono':1,
+                            'sueldobase':1,
+                            'comisionventa':1,
                             'numeroVentas': {
                                 '$size': '$numeroVentas'
                             }
