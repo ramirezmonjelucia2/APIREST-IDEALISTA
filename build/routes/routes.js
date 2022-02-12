@@ -28,6 +28,22 @@ class DatoRoutes {
             });
             database_1.db.desconectarBD();
         });
+        this.getEmpleado = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { idEmpleado } = req.params;
+            yield database_1.db.conectarBD()
+                .then((mensaje) => __awaiter(this, void 0, void 0, function* () {
+                console.log(mensaje);
+                const query = yield empleados_1.modeloEmpleado.find({
+                    idEmpleado: idEmpleado
+                });
+                res.json(query);
+            }))
+                .catch((mensaje) => {
+                res.send(mensaje);
+                console.log(mensaje);
+            });
+            yield database_1.db.desconectarBD();
+        });
         this.getTypes = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { type } = req.params;
             yield database_1.db.conectarBD()
@@ -145,15 +161,17 @@ class DatoRoutes {
             yield database_1.db.desconectarBD();
         });
         this.modificarEmpleado = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { idEmpleado, email, telefono, sueldobase, comision } = req.params;
+            const { idEmpleado } = req.params;
+            const { nombre, email, telefono, sueldobase, comisionventa } = req.body;
             yield database_1.db.conectarBD();
             yield empleados_1.modeloEmpleado.findOneAndUpdate({
                 idEmpleado: idEmpleado
             }, {
+                nombre: nombre,
                 email: email,
                 telefono: telefono,
                 sueldobase: sueldobase,
-                comisionventa: comision
+                comisionventa: comisionventa
             })
                 .then((doc) => res.send(' Subido el sueldo a:  ' + doc))
                 .catch((err) => res.send('Error: ' + err));
@@ -175,8 +193,8 @@ class DatoRoutes {
             yield empleados_1.modeloEmpleado.findOneAndDelete({
                 idEmpleado: idEmpleado
             })
-                .then((doc) => res.send(' Empleado borrado: ' + doc))
-                .catch((err) => res.send('Error: ' + err));
+                .then((doc) => res.send(doc))
+                .catch((err) => res.send(err));
             yield database_1.db.desconectarBD();
         });
         this._router = (0, express_1.Router)();
@@ -188,9 +206,10 @@ class DatoRoutes {
         this._router.get('/viviendas', this.getViviendas);
         this._router.get('/viviendas/:type', this.getTypes);
         this._router.get('/empleados', this.getEmpleados);
+        this._router.get('/empleado/:idEmpleado', this.getEmpleado);
         this._router.post('/vivienda', this.postVivienda);
         this._router.post('/empleados', this.postEmpleado);
-        this._router.put('/empleado/:idEmpleado/:sueldobase/:comision', this.modificarEmpleado);
+        this._router.put('/empleado/:idEmpleado', this.modificarEmpleado);
         this._router.put('/venta/:idVivienda/:idEmpleado', this.updateEstado);
         this._router.delete('/deleteEmpleado/:idEmpleado', this.deleteEmpleado);
         this._router.delete('/deleteVivienda/:idVivienda', this.deleteVivienda);

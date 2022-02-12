@@ -29,6 +29,27 @@ class DatoRoutes {
     }
 
 
+    private getEmpleado = async (req: Request, res: Response) => {
+        const { idEmpleado } = req.params
+        await db.conectarBD()
+            .then(
+                async (mensaje) => {
+                    console.log(mensaje)
+                    const query = await modeloEmpleado.find(
+                        {
+
+                            idEmpleado: idEmpleado
+                        }
+                    )
+                    res.json(query)
+                })
+            .catch(
+                (mensaje) => {
+                    res.send(mensaje)
+                    console.log(mensaje)
+                })
+        await db.desconectarBD()
+    }
 
 
 
@@ -74,10 +95,10 @@ class DatoRoutes {
                         '$project': {
                             'idEmpleado': 1,
                             'nombre': 1,
-                            'email':1,
-                            'telefono':1,
-                            'sueldobase':1,
-                            'comisionventa':1,
+                            'email': 1,
+                            'telefono': 1,
+                            'sueldobase': 1,
+                            'comisionventa': 1,
                             'numeroVentas': {
                                 '$size': '$numeroVentas'
                             }
@@ -187,17 +208,19 @@ class DatoRoutes {
         await db.desconectarBD()
     }
     private modificarEmpleado = async (req: Request, res: Response) => {
-        const { idEmpleado, email, telefono, sueldobase, comision } = req.params
+        const { idEmpleado } = req.params
+        const { nombre, email, telefono, sueldobase, comisionventa } = req.body
         await db.conectarBD()
         await modeloEmpleado.findOneAndUpdate(
             {
                 idEmpleado: idEmpleado
             },
             {
+                nombre: nombre,
                 email: email,
                 telefono: telefono,
                 sueldobase: sueldobase,
-                comisionventa: comision
+                comisionventa: comisionventa
             }
         )
             .then((doc: any) => res.send(' Subido el sueldo a:  ' + doc))
@@ -226,8 +249,8 @@ class DatoRoutes {
                 idEmpleado: idEmpleado
             }
         )
-            .then((doc: any) => res.send(' Empleado borrado: ' + doc))
-            .catch((err: any) => res.send('Error: ' + err))
+            .then((doc: any) => res.send( doc))
+            .catch((err: any) => res.send(err))
         await db.desconectarBD()
     }
 
@@ -236,11 +259,12 @@ class DatoRoutes {
         this._router.get('/viviendas', this.getViviendas)
         this._router.get('/viviendas/:type', this.getTypes)
         this._router.get('/empleados', this.getEmpleados)
+        this._router.get('/empleado/:idEmpleado', this.getEmpleado)
 
         this._router.post('/vivienda', this.postVivienda)
         this._router.post('/empleados', this.postEmpleado)
 
-        this._router.put('/empleado/:idEmpleado/:sueldobase/:comision', this.modificarEmpleado)
+        this._router.put('/empleado/:idEmpleado', this.modificarEmpleado)
         this._router.put('/venta/:idVivienda/:idEmpleado', this.updateEstado)
 
         this._router.delete('/deleteEmpleado/:idEmpleado', this.deleteEmpleado)
