@@ -44,6 +44,22 @@ class DatoRoutes {
             });
             yield database_1.db.desconectarBD();
         });
+        this.getVivienda = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { idVivienda } = req.params;
+            yield database_1.db.conectarBD()
+                .then((mensaje) => __awaiter(this, void 0, void 0, function* () {
+                console.log(mensaje);
+                const query = yield viviendas_1.modeloVivienda.find({
+                    idVivienda: idVivienda
+                });
+                res.json(query);
+            }))
+                .catch((mensaje) => {
+                res.send(mensaje);
+                console.log(mensaje);
+            });
+            yield database_1.db.desconectarBD();
+        });
         this.getTypes = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { type } = req.params;
             yield database_1.db.conectarBD()
@@ -205,6 +221,7 @@ class DatoRoutes {
     misRutas() {
         this._router.get('/viviendas', this.getViviendas);
         this._router.get('/viviendas/:type', this.getTypes);
+        this._router.get('/vivienda/:idVivienda', this.getVivienda);
         this._router.get('/empleados', this.getEmpleados);
         this._router.get('/empleado/:idEmpleado', this.getEmpleado);
         this._router.post('/vivienda', this.postVivienda);

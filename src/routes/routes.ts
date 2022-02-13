@@ -50,6 +50,28 @@ class DatoRoutes {
                 })
         await db.desconectarBD()
     }
+    
+    private getVivienda = async (req: Request, res: Response) => {
+        const { idVivienda } = req.params
+        await db.conectarBD()
+            .then(
+                async (mensaje) => {
+                    console.log(mensaje)
+                    const query = await modeloVivienda.find(
+                        {
+
+                            idVivienda: idVivienda
+                        }
+                    )
+                    res.json(query)
+                })
+            .catch(
+                (mensaje) => {
+                    res.send(mensaje)
+                    console.log(mensaje)
+                })
+        await db.desconectarBD()
+    }
 
 
 
@@ -258,6 +280,7 @@ class DatoRoutes {
     misRutas() {
         this._router.get('/viviendas', this.getViviendas)
         this._router.get('/viviendas/:type', this.getTypes)
+        this._router.get('/vivienda/:idVivienda', this.getVivienda)
         this._router.get('/empleados', this.getEmpleados)
         this._router.get('/empleado/:idEmpleado', this.getEmpleado)
 
