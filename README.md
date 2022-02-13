@@ -2,7 +2,9 @@
 
 _Realizado por Lucía Ramírez Monje 2ºAsir_
 
-
+Este proyecto ha sido realizado para simular una página sobre venta de viviendas.
+Contiene un menú CRUD donde se pueden crear, borrar, modificar, y listar empleados.
+Tambíen algunos gráficos y un menú de venta de viviendas.
 
 
 ## Construido con 🛠️
